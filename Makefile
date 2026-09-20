@@ -9,6 +9,12 @@ down:
 logs:
 	docker compose logs -f airflow
 
+airflow:
+	docker compose exec -T airflow airflow dags list
+
+airflow-test:
+	docker compose exec -T airflow airflow dags test weather_pipeline 2026-09-19
+
 airflow-ui:
 	@echo "Airflow:    http://localhost:8080  (admin / admin)"
 
