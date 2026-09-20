@@ -44,7 +44,19 @@ services:
       - ./notebooks:/opt/airflow/notebooks
     ports:
       - "8080:8080"
-    command: standalone
+    command: >
+      bash -c "
+        airflow db migrate &&
+        airflow users create \
+          --username admin \
+          --password admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com || true;
+        airflow scheduler &
+        exec airflow webserver
+      "
 
   # Same image and environment as Airflow, so the notebook imports the same code and
   # talks to the same database. http://localhost:8888
