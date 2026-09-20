@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: raw_weather_daily
+        description: Raw weather data loaded from the Open-Meteo Archive API.
+
+        columns:
+          - name: city
+            description: City name, as configured in config/cities.yml.
+            tests:
+              - not_null
+          - name: date
+            description: Calendar date (city-local) the observation covers.
+            tests:
+              - not_null
